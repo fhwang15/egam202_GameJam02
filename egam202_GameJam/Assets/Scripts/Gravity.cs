@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Gravity : MonoBehaviour
@@ -12,42 +13,37 @@ public class Gravity : MonoBehaviour
     private ConstantForce cForce;
     private Vector3 forceDirection;
 
+    float maxDistance = 0.5f;
+    RaycastHit hit;
+
+    public Inventory items;
 
     // Start is called before the first frame update
     void Start()
     {
         cForce = GetComponent<ConstantForce>();
-        forceDirection = new Vector3(0, -10, 0);
-        cForce.force = forceDirection;
+        forceDirection = new Vector3(0, 0, 0);
+        cForce.relativeForce = forceDirection;
+
+        items = GetComponent<Inventory>();
+        
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        //OnDrawGizmos();
+        forceDirection = new Vector3(0, items.gravity, 0);
+        cForce.relativeForce = forceDirection;
+
+        Debug.Log(items.gravity);
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    float maxDistance = 1;
-    //    RaycastHit hit;
+    void detectWall()
+    {
         
-    //    bool isHit = Physics.BoxCast(transform.position, transform.lossyScale, transform.forward, out hit, transform.rotation, maxDistance);
-
-    //    Gizmos.color = Color.red;
-    //    if (isHit)
-    //    {
-    //        Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-    //        Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
-    //    }
-    //    else
-    //    {
-    //        Gizmos.DrawRay(transform.position, transform.forward * maxDistance);
-    //    }
-
-    //}
-
-
-  
+            //hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
+            //items.currentState = Items.ChangeGravity;
+        
+    }  
 }
