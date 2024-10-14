@@ -64,17 +64,17 @@ public class Inventory : MonoBehaviour
 
     void DefaultState()
     {
-        gravity = -300f;
+        gravity = -500f;
     }
 
     void LighterState()
     {
-        gravity = -150f;
+        gravity = -300f;
     }
 
     void HeavierState()
     {
-        
+        gravity = -700f;
     }
 
 

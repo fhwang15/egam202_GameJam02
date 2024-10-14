@@ -36,7 +36,6 @@ public class Gravity : MonoBehaviour
         forceDirection = new Vector3(0, items.gravity, 0);
         cForce.relativeForce = forceDirection;
 
-        Debug.Log(items.gravity);
     }
 
     void detectWall()
