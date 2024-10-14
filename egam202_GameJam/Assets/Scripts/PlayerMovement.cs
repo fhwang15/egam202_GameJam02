@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Items
+{
+    Default,
+    Lighter,
+    Heavier,
+    ChangeGravity
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
     public float speed;
     public float jumping;
+
     float JumpForce;
 
-    public float gravityScale = 1.0f;
+    // public float gravityScale = 1.0f;
 
-    public static float globalGravity = -9.81f;
-
+    //public Items currentState;
 
     float xAxis;
     float zAxis;
@@ -21,13 +29,14 @@ public class PlayerMovement : MonoBehaviour
 
     bool canJump;
 
+    Items item;
+
     // Start is called before the first frame update
     void Start()
     {
+
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
-        
-        canJump = true;
 
     }
 
@@ -38,23 +47,16 @@ public class PlayerMovement : MonoBehaviour
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
-        {
-            Jump();
-        }
-
         Run();
 
-    }
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
+            Jump();        
+        }
 
-
-    private void FixedUpdate()
-    {
-
-        rb.AddForce(Physics.gravity * (gravityScale - 1) * rb.mass);
        
-    }
 
+    }
 
     void Run()
     {
@@ -64,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+
         rb.AddForce(Vector3.up * jumping, ForceMode.VelocityChange);
         canJump = false;
         
@@ -77,8 +80,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.tag == "floor")
         {
-            Debug.Log("touching");
-
+            
             canJump = true;
         }
     }
