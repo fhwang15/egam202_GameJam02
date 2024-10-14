@@ -25,15 +25,15 @@ public class MainCameraMovement : MonoBehaviour
         cameraY = 5.0f; //Camera should be away from the target itself
         cameraZ = -10.0f;
 
-
         CameraSpeed = 10.0f;
+
+       
 
     }
 
     private void FixedUpdate()
     {
         TargetPos = new Vector3(Target.transform.position.x + cameraX, Target.transform.position.y + cameraY, Target.transform.position.z + cameraZ);
-        
         transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
         
 

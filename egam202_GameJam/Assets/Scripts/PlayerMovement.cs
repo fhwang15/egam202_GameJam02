@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Items
-{
-    Default,
-    Lighter,
-    Heavier,
-    ChangeGravity
-}
-
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
