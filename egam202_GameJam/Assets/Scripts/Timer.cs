@@ -5,14 +5,14 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public float timerNumber;
+    public static float timerNumber;
 
     public TextMeshProUGUI timerText;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        timerNumber = 10;
     }
 
     // Update is called once per frame

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class target : MonoBehaviour
 {
 
     public static int currentScore;
-    public static bool targethitted;
 
-    public MeshRenderer myMaterial;
+    public Renderer myRend;
 
 
     bool hitted;
@@ -29,7 +29,7 @@ public class target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentScore);
+      
 
     }
 
@@ -40,7 +40,7 @@ public class target : MonoBehaviour
             currentScore++;
             hitted = true;
 
-            myMaterial.color = Color.yellow;
+            myRend.material.color = Color.yellow;
 
         }
 

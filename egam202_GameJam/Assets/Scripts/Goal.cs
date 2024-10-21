@@ -6,8 +6,6 @@ using TMPro;
 public class Goal : MonoBehaviour
 {
 
-    public GameObject Timer;
-
     bool win;
 
     public TextMeshProUGUI winText;
@@ -25,14 +23,23 @@ public class Goal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target.targethitted)
+        if (target.currentScore == 3)
         {
             win = true;
         }
-        else
+        else if (target.currentScore < 3)
         {
             win = false;
         }
+
+        else if (Timer.timerNumber < 0) 
+        {
+            Time.timeScale = 0;
+            losing();
+        }
+
+
+
     }
 
     public void winning()
