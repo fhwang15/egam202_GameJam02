@@ -22,7 +22,7 @@ public class MainCameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraY = 8.0f; //Camera should be away from the target itself
+        cameraY = 10.0f; //Camera should be away from the target itself
         cameraZ = 12.0f;
 
         CameraSpeed = 10.0f;

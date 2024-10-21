@@ -5,6 +5,9 @@ using TMPro;
 
 public class Goal : MonoBehaviour
 {
+
+    public GameObject Timer;
+
     bool win;
 
     public TextMeshProUGUI winText;
