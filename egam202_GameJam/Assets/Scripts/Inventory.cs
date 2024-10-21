@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
         }
         else if (Left)
         {
-            xAxisgravity = -30f; //음냐... 뭐냐 그거다 그 바깥오른쪽
+            xAxisgravity = -10f; //음냐... 뭐냐 그거다 그 바깥오른쪽
             yAxisgravity = 0; //우리가 통상적으로 보는 '아래'로 향하는 힘 (쓰레기를 나무로바꾸는힘!)
             zAxisgravity = 0; //닌 뭔데 (오른쪽에 쓰일겁니다)
 
@@ -142,7 +142,7 @@ public class Inventory : MonoBehaviour
         {
             //Very Default, the gravity is towards downside.
             xAxisgravity = 0;
-            yAxisgravity = -20f;
+            yAxisgravity = -30f;
             zAxisgravity = 0;
 
             //아... 이거 한꺼번에 묶는거 없나? 나중에 찾으셈ㄱ-

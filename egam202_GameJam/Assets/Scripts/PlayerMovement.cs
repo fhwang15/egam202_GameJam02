@@ -67,6 +67,14 @@ public class PlayerMovement : MonoBehaviour
         {
             movement = new Vector3((-1 * zAxis), 0, xAxis) * speed; //change in value of the position of the object
             movement.y = rb.velocity.y; //jump depends on the rigidbody of the obejct;
+
+            if (!(xAxis == 0 && zAxis == 0))
+            {
+                Quaternion newRotation = Quaternion.LookRotation(movement);
+                rb.MoveRotation(newRotation);
+                //Player character turns towards the side they are looking at.
+            }
+
         }
 
         else if (invent.Left) 
@@ -74,17 +82,17 @@ public class PlayerMovement : MonoBehaviour
             movement = new Vector3(0, zAxis, xAxis) * speed; //change in value of the position of the object
             movement.x = rb.velocity.x; //jump depends on the rigidbody of the obejct;
 
+            if (!(xAxis == 0 && zAxis == 0))
+            {
+                Quaternion newRotation = Quaternion.LookRotation(movement);
+                rb.MoveRotation(newRotation);
+                //Player character turns towards the side they are looking at.
+            }
+
             LeftGravity();
         }
 
-        if (!(xAxis == 0 && zAxis == 0))
-        {
-            Quaternion newRotation = Quaternion.LookRotation(movement);
-            rb.MoveRotation(newRotation);
-
-            //Player character turns towards the side they are looking at.
-
-        }
+       
 
         rb.velocity = movement; //change in position
 
