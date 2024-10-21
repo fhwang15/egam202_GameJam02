@@ -20,5 +20,7 @@ public class ResetButton : MonoBehaviour
     public void onPressed()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1.0f;
+        target.targethitted = false;
     }
 }

@@ -22,8 +22,8 @@ public class MainCameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraY = 5.0f; //Camera should be away from the target itself
-        cameraZ = -10.0f;
+        cameraY = 8.0f; //Camera should be away from the target itself
+        cameraZ = 12.0f;
 
         CameraSpeed = 10.0f;
 
@@ -35,8 +35,7 @@ public class MainCameraMovement : MonoBehaviour
     {
         TargetPos = new Vector3(Target.transform.position.x + cameraX, Target.transform.position.y + cameraY, Target.transform.position.z + cameraZ);
         transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
-        
-
+       
 
     }
 

@@ -10,10 +10,10 @@ public class Gravity : MonoBehaviour
     
     public Rigidbody rb;
 
-    private ConstantForce cForce;
-    private Vector3 forceDirection;
+    private ConstantForce cForce; //custom gravity
+    private Vector3 forceDirection; //choosing the direction of the force
 
-    float maxDistance = 0.5f;
+    //float maxDistance = 0.5f;
     RaycastHit hit;
 
     public Inventory items;
@@ -22,8 +22,8 @@ public class Gravity : MonoBehaviour
     void Start()
     {
         cForce = GetComponent<ConstantForce>();
-        forceDirection = new Vector3(0, 0, 0);
-        cForce.relativeForce = forceDirection;
+        forceDirection = new Vector3(0, -10, 0);
+        cForce.force = forceDirection;
 
         items = GetComponent<Inventory>();
         
@@ -33,16 +33,16 @@ public class Gravity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        forceDirection = new Vector3(0, items.gravity, 0);
-        cForce.relativeForce = forceDirection;
+        forceDirection = new Vector3(items.xAxisgravity, items.yAxisgravity, items.zAxisgravity);
+        cForce.force = forceDirection;
 
     }
 
     void detectWall()
     {
         
-            //hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
-            //items.currentState = Items.ChangeGravity;
-        
     }  
+
+
+
 }

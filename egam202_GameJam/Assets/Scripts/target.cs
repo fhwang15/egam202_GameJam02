@@ -38,7 +38,7 @@ public class target : MonoBehaviour
 
                 target Delivery = hitInfo.transform.gameObject.GetComponent<target>();
 
-                Debug.Log(Delivery);
+                //Debug.Log(Delivery);
                 
 
                 if (Delivery != null && chances > 0)
