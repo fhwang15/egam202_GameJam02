@@ -19,21 +19,32 @@ public class Inventory : MonoBehaviour
 
     public Items currentState;
 
-    public float yAxisgravity; //
-    public float xAxisgravity; //
-    public float zAxisgravity; //
+    public float yAxisgravity; //흑흑
+    public float xAxisgravity; //시바
+    public float zAxisgravity; //너무힘드러잇
 
 
-    public float lighterGrav;
+    public bool Left;
+    public bool Right;
+    public bool Floor;
 
-    public float distanceDetector;
+    // 당장은 floor랑 left만 있는셈치셈 아니면 님이 뒤짐... (충격!)
+
+    public float lighterGrav; //닌뭐임?
+
+    public float distanceDetector; //감지범위
 
     public bool Walldetected;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        Floor = true; //가장 디폴트로는 땅바닥에 붙어있으셔야해
+        Left = false; //이게 이제 중력의 방향을 바꿨을때 토글이 될거임 플로어가 false가 되면서 잠금되고 다른게 해.방.
+        Right = false;
+
+
     }
 
     // Update is called once per frame
@@ -42,6 +53,7 @@ public class Inventory : MonoBehaviour
 
         currentItem.text = "Current Mode: " + currentState.ToString();
 
+        //changing the mode
         if (Input.GetKeyDown(KeyCode.Z))
         {
             currentState++;
@@ -71,45 +83,119 @@ public class Inventory : MonoBehaviour
 
     void DefaultState()
     {
-        yAxisgravity = -10f;
+        if (Floor)
+        {
+            //Very Default, the gravity is towards downside.
+            xAxisgravity = 0;
+            yAxisgravity = -10f;
+            zAxisgravity = 0;
+
+            //아... 이거 한꺼번에 묶는거 없나? 나중에 찾으셈ㄱ-
+        }
+        else if (Left)
+        {
+            xAxisgravity = -30f; //음냐... 뭐냐 그거다 그 바깥오른쪽
+            yAxisgravity = 0; //우리가 통상적으로 보는 '아래'로 향하는 힘 (쓰레기를 나무로바꾸는힘!)
+            zAxisgravity = 0; //닌 뭔데 (오른쪽에 쓰일겁니다)
+
+        }
+        else if (Right) 
+        { 
+        
+        //넌 기다려라 이 맞장갈새기야
+        
+        }
+
+
+
     }
 
     void LighterState()
     {
-        yAxisgravity = -5f;
+        if (Floor)
+        {
+            //Very Default, the gravity is towards downside.
+            xAxisgravity = 0;
+            yAxisgravity = -5f;
+            zAxisgravity = 0;
+
+            //아... 이거 한꺼번에 묶는거 없나? 나중에 찾으셈ㄱ-
+        }
+        else if (Left)
+        {
+            xAxisgravity = -10f; //음냐... 뭐냐 그거다 그 바깥오른쪽
+            yAxisgravity = 0; //우리가 통상적으로 보는 '아래'로 향하는 힘 (쓰레기를 나무로바꾸는힘!)
+            zAxisgravity = 0; //닌 뭔데 (오른쪽에 쓰일겁니다)
+
+        }
+        else if (Right)
+        {
+
+            //넌 기다려라 이 맞장갈새기야
+
+        }
     }
 
     void HeavierState()
     {
-        yAxisgravity = -20f;
+        if (Floor)
+        {
+            //Very Default, the gravity is towards downside.
+            xAxisgravity = 0;
+            yAxisgravity = -20f;
+            zAxisgravity = 0;
+
+            //아... 이거 한꺼번에 묶는거 없나? 나중에 찾으셈ㄱ-
+        }
+        else if (Left)
+        {
+            xAxisgravity = -50f; //음냐... 뭐냐 그거다 그 바깥오른쪽
+            yAxisgravity = 0; //우리가 통상적으로 보는 '아래'로 향하는 힘 (쓰레기를 나무로바꾸는힘!)
+            zAxisgravity = 0; //닌 뭔데 (오른쪽에 쓰일겁니다)
+
+        }
+        else if (Right)
+        {
+
+            //넌 기다려라 이 맞장갈새기야
+
+        }
     }
 
 
     void ChangeGravity()
     {
+        DefaultState();
+
         RaycastHit hitinfo;
 
         //detect which side it is
         if(Physics.Raycast(transform.position, transform.forward, out hitinfo, distanceDetector))
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
 
                 if (hitinfo.collider.gameObject.CompareTag("LeftWall"))
                 {
-                    Debug.Log(hitinfo.collider.gameObject.name);
+                    Floor = false; 
+                    Left = true; 
+                    Right = false;
 
-                    yAxisgravity = 0;
-                    xAxisgravity = 10;                    
                 }
                 else if (hitinfo.collider.gameObject.CompareTag("RightWall"))
                 {
-
+                    Floor = false;
+                    Left = false;
+                    Right = true;
                 }
                 else if (hitinfo.collider.gameObject.CompareTag("floor"))
                 {
-
+                    Floor = true;
+                    Left = false;
+                    Right = false;
                 }
+
+                currentState = 0;
             }
         } 
         
@@ -118,14 +204,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("undetected");
         }
 
-        //yAxisgravity = -10f;
-
-
         Debug.DrawRay(transform.position, transform.forward, Color.red, 1);
-
-        //if exist & press space, change gravity
-       
-
 
     }
 

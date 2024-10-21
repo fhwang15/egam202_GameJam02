@@ -38,11 +38,4 @@ public class Gravity : MonoBehaviour
 
     }
 
-    void detectWall()
-    {
-        
-    }  
-
-
-
 }
