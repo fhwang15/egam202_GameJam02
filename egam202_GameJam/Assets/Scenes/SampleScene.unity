@@ -2666,7 +2666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25ffcafd45e95b4785948a88de55427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timer: {fileID: 1952109910}
   winText: {fileID: 786662061}
   loseText: {fileID: 723686308}
 --- !u!136 &1133201136
@@ -3466,8 +3465,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472a00f94da06e44a8e0dc936b4d13f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerNumber: 40
   timerText: {fileID: 1952109913}
+  lose: {fileID: 723686306}
 --- !u!114 &1952109913
 MonoBehaviour:
   m_ObjectHideFlags: 0
