@@ -5,59 +5,43 @@ using static System.Net.WebRequestMethods;
 
 public class MainCameraMovement : MonoBehaviour
 {
-    public Camera MyCamera;
+    public Camera MyCamera;   // 카메라
+    public GameObject Target; // 타겟 (주인공 등)
 
-    public GameObject Target;
+    public float cameraDistance = 10.0f;  // 카메라와 타겟 사이의 거리
+    public float cameraHeight = 5.0f;     // 카메라 높이
+    public float cameraAngle = 45.0f;    // 카메라 각도 (쿼터뷰 각도)
 
+    public float CameraSpeed = 10.0f;    // 카메라 이동 속도
 
-    public float cameraX;
-    public float cameraY;
-    public float cameraZ;
+    Vector3 targetPos;
 
-    float CameraSpeed;
-
-    Vector3 TargetPos;
-
-
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        cameraY = 14.0f; //Camera should be away from the target itself
-        cameraZ = 17.0f;
-
-        CameraSpeed = 10.0f;
-
-       
-
+        // 카메라 설정
+        cameraHeight = 5.0f;
+        cameraDistance = 10.0f;
+        cameraAngle = 45.0f;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        TargetPos = new Vector3(Target.transform.position.x + cameraX, Target.transform.position.y + cameraY, Target.transform.position.z + cameraZ);
-        transform.position = Vector3.Lerp(transform.position, TargetPos, Time.deltaTime * CameraSpeed);
-       
-
-    }
-
-    private void LateUpdate()
-    {
+        // 카메라가 타겟을 쫓아가게 설정
+        // 카메라는 타겟 뒤쪽 위쪽에 위치하도록
         Vector3 direction = (Target.transform.position - transform.position).normalized;
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, Mathf.Infinity);
 
-        for (int i = 0; i < hits.Length; i++)
-        {
-            
-        }
+        // 카메라의 목표 위치 계산
+        float horizontalOffset = Mathf.Sin(Mathf.Deg2Rad * cameraAngle) * cameraDistance;
+        float verticalOffset = Mathf.Cos(Mathf.Deg2Rad * cameraAngle) * cameraDistance;
 
-    }
+        // 타겟 뒤쪽 위로 설정
+        Vector3 targetPosition = Target.transform.position;
+        Vector3 cameraPosition = targetPosition - Target.transform.forward * horizontalOffset + Vector3.up * cameraHeight + Target.transform.up * verticalOffset;
 
+        // 카메라 이동
+        transform.position = Vector3.Lerp(transform.position, cameraPosition, Time.deltaTime * CameraSpeed);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // 카메라는 타겟을 바라봄
+        transform.LookAt(Target.transform.position + Vector3.up * cameraHeight); // 타겟을 바라보되 위쪽으로 살짝 봄
     }
 }

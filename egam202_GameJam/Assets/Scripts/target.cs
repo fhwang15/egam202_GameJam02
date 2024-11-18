@@ -16,13 +16,13 @@ public class target : MonoBehaviour
 
     private target Delievered;
 
-    public Camera targetCamera;
-
     // Start is called before the first frame update
     void Start()
     {
         currentScore = 0;
         hitted = false;
+
+        
 
     }
 

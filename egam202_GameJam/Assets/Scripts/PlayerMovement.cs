@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (invent.Floor)
         {
-            movement = new Vector3((-1 * zAxis), 0, xAxis) * speed; //change in value of the position of the object
+            movement = new Vector3(xAxis, 0, zAxis) * speed; //change in value of the position of the object
             movement.y = rb.velocity.y; //jump depends on the rigidbody of the obejct;
 
             if (!(xAxis == 0 && zAxis == 0))
