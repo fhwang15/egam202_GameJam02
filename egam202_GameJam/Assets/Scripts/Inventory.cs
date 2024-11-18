@@ -77,15 +77,12 @@ public class Inventory : MonoBehaviour
         {
             case GravityIntensity.Default:
                 DefaultState();
-                currentItem.color = defaultColor;
                 break;
             case GravityIntensity.Lighter:
                 LighterState();
-                currentItem.color = LighterColor;
                 break;
             case GravityIntensity.Heavier:
                 HeavierState();
-                currentItem.color = HeavierColor;
                 break;
         }
 
