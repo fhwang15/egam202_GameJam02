@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public Inventory invent;
-
+    public Inventory WhenWallis;
 
 
     Rigidbody rb;
@@ -16,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeed; //이거 안쓰는거 같읃데 구라같은데
 
 
-    Vector3 SideGravity; // 이건 뭐징
     public GameObject[] PlatformSide; //이게 바로 90도 물위를 걸을때 우리를 잡아줄 중력이다 이말임 (ㄹㅇㅋㅋ)
 
 
@@ -32,16 +30,12 @@ public class PlayerMovement : MonoBehaviour
 
     bool canJump;
 
-    Items item;
-
     // Start is called before the first frame update
     void Start()
     {
 
         rb = gameObject.GetComponent<Rigidbody>();
         rb.useGravity = false;
-
-        
 
     }
 
@@ -58,12 +52,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();        
         }
+
+        ApplyGravity();
     }
 
     void Run()
     {
-
-        if (invent.Floor)
+        if (WhenWallis.Floor)
         {
             movement = new Vector3(xAxis, 0, zAxis) * speed; //change in value of the position of the object
             movement.y = rb.velocity.y; //jump depends on the rigidbody of the obejct;
@@ -77,22 +72,34 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        else if (invent.Left) 
+        else if (WhenWallis.Left) 
         {
-            movement = new Vector3(0, zAxis, xAxis) * speed; //change in value of the position of the object
+            movement = new Vector3(0, -xAxis, zAxis) * speed; //change in value of the position of the object
             movement.x = rb.velocity.x; //jump depends on the rigidbody of the obejct;
 
-            if (!(xAxis == 0 && zAxis == 0))
+            if (movement != Vector3.zero)
             {
                 Quaternion newRotation = Quaternion.LookRotation(movement);
-                rb.MoveRotation(newRotation);
-                //Player character turns towards the side they are looking at.
+                rb.MoveRotation(newRotation); // 캐릭터가 바라보는 방향으로 회전
             }
+           
 
-            LeftGravity();
         }
 
-       
+        else if (WhenWallis.Right)
+        {
+            movement = new Vector3(0, xAxis, zAxis) * speed; //change in value of the position of the object
+            movement.x = rb.velocity.x; //jump depends on the rigidbody of the obejct;
+
+            if (movement != Vector3.zero)
+            {
+                Quaternion newRotation = Quaternion.LookRotation(movement);
+                rb.MoveRotation(newRotation); // 캐릭터가 바라보는 방향으로 회전
+            }
+
+
+        }
+
 
         rb.velocity = movement; //change in position
 
@@ -107,17 +114,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void LeftGravity()
+    void ApplyGravity()
     {
+        // Inventory에서 중력 값을 가져와서 적용
+        float xAxisgravity = WhenWallis.xAxisgravity;
+        float yAxisgravity = WhenWallis.yAxisgravity;
+        float zAxisgravity = WhenWallis.zAxisgravity;
 
-        for (int i = 0; i < PlatformSide.Length; i++)
-        {
-            Vector3 direction = PlatformSide[i].transform.position - this.transform.position;
-
-            direction.Normalize();
-            this.rb.AddForce(direction * gravityScale);
-
-        }
+        // 현재 중력 적용
+        Vector3 gravity = new Vector3(xAxisgravity, yAxisgravity, zAxisgravity);
+        rb.AddForce(gravity * gravityScale);
     }
 
 
@@ -125,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.tag == "floor")
         {
-            
             canJump = true;
             
         }

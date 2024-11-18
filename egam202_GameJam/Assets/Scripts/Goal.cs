@@ -6,7 +6,7 @@ using TMPro;
 public class Goal : MonoBehaviour
 {
 
-    bool win;
+    public bool win;
 
     public TextMeshProUGUI winText;
     public TextMeshProUGUI loseText;

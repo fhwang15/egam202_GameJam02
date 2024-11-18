@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WayPoint : MonoBehaviour
+public class GoalPoint : MonoBehaviour
 {
     public Camera mainCamera;         // 카메라 참조
     public Transform target;          // 목표 지점 (WayPoint)
     public Image markerImage;         // UI 마커 이미지
 
-    public target Passed;
+    public Goal Passed;
 
     private RectTransform canvasRect; // 캔버스 RectTransform
 
     private void Start()
     {
+        markerImage.enabled = false;
         // 캔버스 RectTransform 캐싱
         canvasRect = markerImage.canvas.GetComponent<RectTransform>();
-        Passed = GetComponent<target>();
+        Passed = GetComponent<Goal>();
     }
 
     private void Update()
     {
-        if (Passed.hitted)
+        if (Passed.win)
         {
-            markerImage.enabled = false;
+            markerImage.enabled = true;
         }
 
         // 월드 좌표를 화면 좌표로 변환

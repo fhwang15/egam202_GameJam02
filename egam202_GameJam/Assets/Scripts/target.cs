@@ -12,7 +12,7 @@ public class target : MonoBehaviour
     public Renderer myRend;
 
 
-    bool hitted;
+    public bool hitted;
 
     private target Delievered;
 
@@ -41,7 +41,6 @@ public class target : MonoBehaviour
             hitted = true;
 
             myRend.material.color = Color.yellow;
-
         }
 
        
